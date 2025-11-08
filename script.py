@@ -36,7 +36,7 @@ NK→SK 농업 적성 추천: FastAPI 백엔드 (단일 요청에 12문항 모�
 
 from typing import List, Dict, Any, Literal, Optional
 from fastapi import FastAPI
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 from openai import OpenAI
 import json
 import os
@@ -100,7 +100,8 @@ class Answers(BaseModel):
     # 실행 옵션
     run_model: bool = Field(default=True, description="LLM 호출 여부")
 
-    @validator("q10", pre=True, always=True)
+    @field_validator("q10", mode="before")
+    @classmethod
     def _none_to_empty(cls, v):
         return v or ""
 
