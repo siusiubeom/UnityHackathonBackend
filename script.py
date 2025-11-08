@@ -173,8 +173,7 @@ def call_llm(system_prompt: str, user_prompt: str) -> Dict[str, Any]:
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
-        ],
-        temperature=0.2,
+        ]
     )
     content = completion.choices[0].message.content.strip()
 
